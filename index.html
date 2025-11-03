@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age of War</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        #gameContainer {
+            position: relative;
+        }
+
+        #gameCanvas {
+            border: 3px solid #16213e;
+            background: linear-gradient(to bottom, #87ceeb 0%, #f0e68c 70%, #8b7355 100%);
+            display: block;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .ui-panel {
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            pointer-events: auto;
+        }
+
+        .stat {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .stat-value {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        #unitButtons {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            pointer-events: auto;
+        }
+
+        .unit-button {
+            background: linear-gradient(to bottom, #4a90e2, #2e5c8a);
+            border: 2px solid #1a3a5a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            min-width: 100px;
+        }
+
+        .unit-button:hover {
+            background: linear-gradient(to bottom, #5aa0f2, #3e6c9a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .unit-button:active {
+            transform: translateY(0);
+        }
+
+        .unit-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .unit-cost {
+            font-size: 11px;
+            color: #ffd700;
+        }
+
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        #gameOver h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        #gameOver button {
+            background: #4a90e2;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #gameOver button:hover {
+            background: #5aa0f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="1200" height="600"></canvas>
+
+        <div id="ui">
+            <div class="ui-panel">
+                <div class="stat">Gold: <span class="stat-value" id="playerGold">500</span></div>
+                <div class="stat">Base HP: <span class="stat-value" id="playerHP">100</span></div>
+                <div class="stat">XP: <span class="stat-value" id="playerXP">0</span></div>
+                <div class="stat">Age: <span class="stat-value" id="playerAge">1</span></div>
+            </div>
+
+            <div class="ui-panel">
+                <div class="stat">Enemy Gold: <span class="stat-value" id="enemyGold">500</span></div>
+                <div class="stat">Enemy HP: <span class="stat-value" id="enemyHP">100</span></div>
+            </div>
+        </div>
+
+        <div id="unitButtons">
+            <button class="unit-button" id="spawnClubman">
+                <div>Clubman</div>
+                <div class="unit-cost">Cost: 50</div>
+            </button>
+            <button class="unit-button" id="spawnSwordsman">
+                <div>Swordsman</div>
+                <div class="unit-cost">Cost: 100</div>
+            </button>
+            <button class="unit-button" id="spawnArcher">
+                <div>Archer</div>
+                <div class="unit-cost">Cost: 150</div>
+            </button>
+            <button class="unit-button" id="spawnKnight">
+                <div>Knight</div>
+                <div class="unit-cost">Cost: 250</div>
+            </button>
+        </div>
+
+        <div id="gameOver">
+            <h2 id="gameOverText">Victory!</h2>
+            <p id="gameOverMessage">You have conquered the enemy base!</p>
+            <button id="restartButton">Play Again</button>
+        </div>
+    </div>
+
+    <script type="module" src="/game.js"></script>
+</body>
+</html>
